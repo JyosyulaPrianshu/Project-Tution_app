@@ -8,8 +8,9 @@ python-dotenv==1.0.1
 Flask-Migrate==4.0.5
 Flask-SocketIO==5.3.6
 Flask-Mail==0.9.1
-gunicorn==21.2.0
+itsdangerous==2.1.2
+pytz==2024.1
 requests==2.31.0
-pytz
+gunicorn==21.2.0
 # Frontend (handled via CDN in templates, but listed for reference)
 # Tailwind CSS, DaisyUI, Animate.css will be included via CDN in HTML templates 
