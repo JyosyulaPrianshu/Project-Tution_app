@@ -1,0 +1,130 @@
+{% extends 'shared/base.html' %}
+{% block content %}
+<!-- Hamburger and Sidebar -->
+<div class="relative h-screen font-poppins antialiased overflow-hidden">
+  <input type="checkbox" id="drawer-toggle" class="peer sr-only" />
+  <label for="drawer-toggle" class="fixed top-4 left-4 z-50 cursor-pointer bg-indigo-500 rounded-lg p-4 transition-all duration-500 peer-checked:rotate-180 peer-checked:left-64 shadow-lg">
+    <div class="w-6 h-1 mb-1 bg-white rounded-lg transition-all duration-300 -rotate-45"></div>
+    <div class="w-6 h-1 bg-white rounded-lg transition-all duration-300 rotate-45"></div>
+  </label>
+  <div id="sidebar" class="fixed top-0 left-0 z-40 w-64 h-full bg-white shadow-xl px-3 overflow-x-hidden transition-transform duration-500 -translate-x-full peer-checked:translate-x-0">
+    <div class="space-y-6 md:space-y-10 mt-10">
+      <div class="bg-gray-900 rounded-xl shadow-md px-4 py-3 mb-8 flex flex-row items-center gap-3">
+        <span class="inline-block">
+          <!-- SVG Graduation Cap Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-indigo-400">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 14.25c-3.25 0-6.5-1.458-8.25-2.25a.563.563 0 010-1.01C5.5 10.208 8.75 8.75 12 8.75s6.5 1.458 8.25 2.24a.563.563 0 010 1.01C18.5 12.792 15.25 14.25 12 14.25z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8.75V4.5m0 0L7.5 6.75m4.5-2.25l4.5 2.25" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75v2.25A2.25 2.25 0 009 20.25h6a2.25 2.25 0 002.25-2.25v-2.25" />
+          </svg>
+        </span>
+        <span>
+          <span class="block text-2xl md:text-3xl font-extrabold text-white tracking-tight leading-tight" style="letter-spacing:-0.01em;">
+            E.
+          </span>
+          <span class="block text-lg md:text-xl font-semibold text-white tracking-wide" style="letter-spacing:0.03em;">
+            Tutorial
+          </span>
+        </span>
+      </div>
+      <div id="profile" class="space-y-3">
+        <img src="https://ui-avatars.com/api/?name=Admin&background=random" alt="Random Avatar" width="64" height="64" class="rounded mx-auto shadow-md bg-gray-200" />
+        <div>
+          <h2 class="font-medium text-xs md:text-sm text-center text-teal-500">
+            {{ current_user.username if current_user else 'Admin' }}
+          </h2>
+          <p class="text-xs text-gray-500 text-center">
+            {{ current_user.email if current_user else '' }}
+          </p>
+        </div>
+  </div>
+      <div id="menu" class="flex flex-col space-y-2">
+        <a href="{{ url_for('admin.upload_pdfs') }}" class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out">
+          <svg class="w-6 h-6 fill-current inline-block" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 3a1 1 0 011-1h10a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V3zm2 2v10h8V5H6z" />
+          </svg>
+          <span class="">Upload PDFs</span>
+        </a>
+        <a href="{{ url_for('admin.notifystudents') }}" class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out">
+          <svg class="w-6 h-6 fill-current inline-block" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 2a6 6 0 016 6v2a6 6 0 01-12 0V8a6 6 0 016-6zm-2 8a2 2 0 104 0 2 2 0 00-4 0z" />
+          </svg>
+          <span class="">Notify Students</span>
+        </a>
+        <a href="{{ url_for('admin.studentdetails') }}" class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out">
+          <svg class="w-6 h-6 fill-current inline-block" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 7a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+          </svg>
+          <span class="">Student Details</span>
+        </a>
+        <a href="{{ url_for('admin.test_upload') }}" class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out">
+          <svg class="w-6 h-6 fill-current inline-block" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+            <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd" />
+          </svg>
+          <span class="">Test Upload</span>
+        </a>
+        <a href="{{ url_for('admin.fee_management') }}" class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out">
+          <svg class="w-6 h-6 fill-current inline-block" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+          </svg>
+          <span class="">Fee Management</span>
+        </a>
+        <a href="{{ url_for('admin.approve') }}" class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out">
+          <svg class="w-6 h-6 fill-current inline-block" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+          </svg>
+          <span class="">Approvals</span>
+        </a>
+        <a href="{{ url_for('admin.studentleads') }}" class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-yellow-400 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out">
+          <svg class="w-6 h-6 fill-current inline-block" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 2a1 1 0 00-1 1v1H7a1 1 0 00-1 1v2a5 5 0 005 5 5 5 0 005-5V4a1 1 0 00-1-1h-2V3a1 1 0 00-1-1zm-3 4V5h6v1a3 3 0 01-6 0zm-2 2a1 1 0 011-1h1v1a7 7 0 007 7 7 7 0 007-7V7h1a1 1 0 011 1v2a9 9 0 01-9 9 9 9 0 01-9-9V8z" />
+          </svg>
+          <span class="">Leaderboard</span>
+        </a>
+        <a href="{{ url_for('admin.logout') }}" class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-red-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out">
+          <svg class="w-6 h-6 fill-current inline-block" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd" />
+          </svg>
+          <span class="">Logout</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- Main Content Area -->
+  <div class="flex-1 h-full overflow-hidden">
+    <div class="relative h-full w-full">
+      <!-- Background Image -->
+      <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');">
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+      </div>
+      <!-- Centered Content -->
+      <div class="relative z-10 h-full flex items-center justify-center">
+        <div class="text-left px-4 max-w-3xl w-full" style="margin-top:-2rem;">
+          <h1 class="font-extrabold mb-0 text-white leading-tight" style="text-shadow: 0 6px 32px rgba(0,0,0,0.8), 0 1px 2px rgba(0,0,0,0.5); letter-spacing: -0.01em;">
+            <span class="block text-5xl md:text-7xl lg:text-8xl tracking-tight" style="line-height:1.05;">Excellence</span>
+            <span class="block text-3xl md:text-4xl lg:text-6xl font-semibold opacity-90 mt-2 tracking-wide" style="letter-spacing:0.03em;">Tutorial</span>
+          </h1>
+          <p class="text-lg md:text-xl lg:text-2xl text-white max-w-2xl mt-6 mb-8" style="text-shadow: 0 2px 8px rgba(0,0,0,0.7);">
+            Unlock your potential with premium education and personalized learning
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{{ url_for('admin.upload_pdfs') }}" class="bg-teal-600 hover:bg-teal-700 text-white px-8 py-3 rounded-lg font-semibold transition duration-300 transform hover:scale-105 shadow-lg">
+              <i class="fas fa-book mr-2"></i>
+              Study Materials
+            </a>
+            <a href="{{ url_for('admin.test_upload') }}" class="bg-white hover:bg-gray-100 text-gray-800 px-8 py-3 rounded-lg font-semibold transition duration-300 transform hover:scale-105 shadow-lg">
+              <i class="fas fa-clipboard-check mr-2"></i>
+              Tests Update
+            </a>
+            <a href="{{ url_for('admin.dues_management') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-lg font-semibold transition duration-300 transform hover:scale-105 shadow-lg">
+              <i class="fas fa-rupee-sign mr-2"></i>
+              Dues Management
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,57 @@
+{% set hide_sidebar_toggle = true %}
+{% extends "shared/base.html" %} {% block content %}
+<main class="mx-auto flex min-h-screen w-full items-center justify-center bg-gray-900 text-white">
+  <!-- component -->
+  <section class="flex w-[30rem] flex-col space-y-10">
+    <div class="text-center text-4xl font-medium">
+      {% if role == 'admin' %}Admin Log In{% else %}Student Log In{% endif %}
+    </div>
+
+    <form method="POST" class="space-y-10">
+      {{ form.hidden_tag() }}
+      
+      <div class="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500">
+        {{ form.email(class_="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none text-white", placeholder="Email or Username") }}
+      </div>
+
+      <div class="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500">
+        {{ form.password(class_="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none text-white", placeholder="Password") }}
+      </div>
+
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          {{ form.remember(class_="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded") }}
+          {{ form.remember.label(class_="ml-2 block text-sm text-gray-300") }}
+        </div>
+      </div>
+
+      <button type="submit" class="transform rounded-sm bg-indigo-600 py-2 font-bold duration-300 hover:bg-indigo-400 w-full">
+        LOG IN
+      </button>
+    </form>
+
+    {% if role == 'student' %}
+    <a href="{{ url_for('student.forgot_password') }}" class="transform text-center font-semibold text-gray-500 duration-300 hover:text-gray-300">
+      FORGOT PASSWORD?
+    </a>
+
+    <p class="text-center text-lg">
+      No account?
+      <a href="{{ url_for('student.signup') }}" class="font-medium text-indigo-500 underline-offset-4 hover:underline">
+        Create One
+      </a>
+    </p>
+    {% elif role == 'admin' %}
+    <a href="{{ url_for('admin.forgot_password') }}" class="transform text-center font-semibold text-gray-500 duration-300 hover:text-gray-300">
+      FORGOT PASSWORD?
+    </a>
+    {% endif %}
+
+    <div class="text-center">
+      <a href="{{ url_for('main.landing') }}" class="transform font-semibold text-gray-500 duration-300 hover:text-gray-300">
+        ← Back to Home
+      </a>
+    </div>
+  </section>
+</main>
+{% endblock %} 

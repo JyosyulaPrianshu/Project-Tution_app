@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-800">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Custom CSS -->
+    <style>
+      /* Ensure full dark gray background */
+      html, body {
+        background-color: #1f2937 !important;
+        min-height: 100vh;
+      }
+      
+      /* Custom gradient classes */
+      .gradient-text {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      
+      .bg-gradient-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+      
+      .bg-gradient-accent {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      }
+      
+      .bg-gradient-success {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      }
+      
+      /* Glass effect */
+      .glass-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      
+      .glass-subtle {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      
+      /* Hover effects */
+      .hover-lift:hover {
+        transform: translateY(-5px);
+      }
+      
+      .hover-glow:hover {
+        box-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
+      }
+      
+      /* Button styles */
+      .btn-premium {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        font-weight: 600;
+        padding: 12px 24px;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+      }
+      
+      .btn-premium:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+      }
+      
+      /* Text colors */
+      .text-premium {
+        color: #667eea;
+      }
+      
+      .text-display {
+        color: white;
+      }
+      
+      /* Pulse animation */
+      .pulse-premium {
+        animation: pulse 2s infinite;
+      }
+      
+      @keyframes pulse {
+        0%, 100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+      
+      /* Card container for signup form */
+      .card-container {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-800 min-h-screen text-white flex flex-col">
+    <!-- Toast Container -->
+    <div
+      id="toast-container"
+      class="fixed top-6 right-6 z-50 flex flex-col gap-2"
+    ></div>
+
+    <!-- Main Content Block -->
+    <div class="w-full max-w-5xl mx-auto flex-1 mt-8">
+      {% block content %}{% endblock %}
+    </div>
+
+    <!-- Flask Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+            {% for category, message in messages %}
+              showToast({{ message|tojson }}, {{ category|tojson }});
+            {% endfor %}
+          });
+        </script>
+      {% endif %}
+    {% endwith %}
+
+    <!-- Scripts -->
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script>
+      function showToast(message, category) {
+        const colors = {
+          success: 'bg-green-500',
+          danger: 'bg-red-500',
+          info: 'bg-blue-500',
+          warning: 'bg-yellow-500'
+        };
+        const color = colors[category] || 'bg-blue-500';
+        const toast = document.createElement('div');
+        toast.className = `animate__animated animate__fadeInDown ${color} text-white px-4 py-3 rounded shadow mb-2 flex items-center`;
+        toast.innerHTML = `<span class='flex-1'>${message}</span><button onclick='this.parentElement.remove()' class='ml-4 text-white font-bold'>&times;</button>`;
+        document.getElementById('toast-container').appendChild(toast);
+        setTimeout(() => {
+          toast.classList.remove('animate__fadeInDown');
+          toast.classList.add('animate__fadeOutUp');
+          setTimeout(() => toast.remove(), 1000);
+        }, 5000);
+      }
+    </script>
+  </body>
+</html>
