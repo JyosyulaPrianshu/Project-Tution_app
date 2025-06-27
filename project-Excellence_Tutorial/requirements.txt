@@ -12,5 +12,6 @@ itsdangerous==2.1.2
 pytz==2024.1
 requests==2.31.0
 gunicorn==21.2.0
+email_validator==2.1.1
 # Frontend (handled via CDN in templates, but listed for reference)
 # Tailwind CSS, DaisyUI, Animate.css will be included via CDN in HTML templates 
