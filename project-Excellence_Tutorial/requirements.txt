@@ -7,6 +7,7 @@ WTForms==3.1.2
 python-dotenv==1.0.1
 Flask-Migrate==4.0.5
 Flask-SocketIO==5.3.6
-
+requests==2.31.0
+gunicorn==21.2.0
 # Frontend (handled via CDN in templates, but listed for reference)
 # Tailwind CSS, DaisyUI, Animate.css will be included via CDN in HTML templates 
