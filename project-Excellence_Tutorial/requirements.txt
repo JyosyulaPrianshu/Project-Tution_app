@@ -10,5 +10,6 @@ Flask-SocketIO==5.3.6
 Flask-Mail==0.9.1
 gunicorn==21.2.0
 requests==2.31.0
+pytz
 # Frontend (handled via CDN in templates, but listed for reference)
 # Tailwind CSS, DaisyUI, Animate.css will be included via CDN in HTML templates 
