@@ -1,0 +1,421 @@
+{% extends 'shared/base.html' %}
+{% block content %}
+<style>
+  body, html {
+    background: #181c24 !important;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  }
+  .bg-texture {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.22;
+    filter: blur(0.5px);
+  }
+  .bg-glass-gradient {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    background: linear-gradient(135deg, rgba(10,12,18,0.85) 0%, rgba(36,40,56,0.7) 100%);
+    pointer-events: none;
+  }
+  .bg-overlay {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    background: rgba(24,28,36,0.3);
+    pointer-events: none;
+  }
+  .classy-heading {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2.5rem;
+  }
+  .classy-heading-bar {
+    background: rgba(24,28,36,0.55);
+    backdrop-filter: blur(8px);
+    border-radius: 1.5rem;
+    padding: 1.2rem 2.5rem;
+    box-shadow: 0 4px 32px 0 rgba(0,0,0,0.18);
+    display: inline-block;
+  }
+  .classy-heading-text {
+    font-size: 2.2rem;
+    font-weight: 900;
+    letter-spacing: 0.03em;
+    color: #f3f4f6;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    text-align: center;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.18), 0 1px 2px rgba(0,0,0,0.10);
+    line-height: 1.1;
+  }
+  .glass-card {
+    background: rgba(24,28,36,0.45);
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 32px 0 rgba(0,0,0,0.10);
+    border: 1.5px solid rgba(127,90,240,0.13);
+    backdrop-filter: blur(8px);
+    position: relative;
+    z-index: 3;
+    margin-bottom: 2.5rem;
+    padding: 2.5rem 2rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .tab-btn {
+    padding: 0.6em 2em;
+    margin-right: 0.5em;
+    border: none;
+    background: rgba(127,90,240,0.12);
+    color: #e0e6f7;
+    border-radius: 9999px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.1em;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px 0 rgba(127,90,240,0.08);
+    margin-bottom: 0.5em;
+  }
+  .tab-btn.active, .tab-btn:hover {
+    background: linear-gradient(90deg, #7f5af0 0%, #23263a 100%);
+    color: #fff;
+    box-shadow: 0 4px 16px 0 #7f5af055;
+  }
+  .tab-content { margin-top: 2em; }
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: rgba(24,28,36,0.35);
+    border-radius: 1rem;
+    overflow: hidden;
+    color: #e0e6f7;
+    margin-bottom: 2em;
+    box-shadow: 0 2px 16px 0 rgba(127,90,240,0.08);
+  }
+  th, td {
+    padding: 0.9em 1em;
+    text-align: left;
+    border-bottom: 1px solid rgba(127,90,240,0.10);
+  }
+  th {
+    background: rgba(127,90,240,0.13);
+    color: #b7bfff;
+    font-weight: 700;
+    font-size: 1.05em;
+  }
+  tr:last-child td { border-bottom: none; }
+  form input, form select {
+    background: rgba(36,40,56,0.18);
+    color: #e0e6f7;
+    border: 1.5px solid rgba(127,90,240,0.13);
+    border-radius: 0.7em;
+    padding: 0.6em 1em;
+    margin-bottom: 0.7em;
+    width: 100%;
+    font-size: 1em;
+    outline: none;
+    transition: border 0.2s;
+  }
+  form input:focus, form select:focus {
+    border: 1.5px solid #7f5af0;
+    background: rgba(36,40,56,0.28);
+  }
+  form button[type="submit"] {
+    background: linear-gradient(90deg, #7f5af0 0%, #23263a 100%);
+    color: #fff;
+    border: none;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 1.1em;
+    padding: 0.7em 2.5em;
+    margin-top: 0.5em;
+    box-shadow: 0 2px 16px 0 #7f5af033;
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+  form button[type="submit"]:hover {
+    background: linear-gradient(90deg, #23263a 0%, #7f5af0 100%);
+    box-shadow: 0 4px 32px 0 #7f5af033;
+  }
+  label { color: #b7bfff; font-weight: 500; }
+  .tab-btn:last-child { margin-right: 0; }
+  @media (max-width: 700px) {
+    .glass-card { padding: 1.2rem 0.5rem; }
+    .classy-heading-bar { padding: 0.8rem 1rem; }
+    .classy-heading-text { font-size: 1.2rem; }
+    th, td { padding: 0.5em 0.5em; }
+  }
+  .due-card {
+    background: rgba(24,28,36,0.55);
+    border-radius: 1.2rem;
+    box-shadow: 0 4px 24px 0 rgba(127,90,240,0.10);
+    border: 2px solid rgba(127,90,240,0.25);
+    backdrop-filter: blur(8px);
+    padding: 1.5rem 1.2rem;
+    margin-bottom: 1.5rem;
+    color: #e0e6f7;
+    transition: box-shadow 0.2s, border 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .due-card .due-label {
+    font-size: 1.1em;
+    font-weight: 700;
+    color: #b7bfff;
+    margin-bottom: 0.2em;
+  }
+  .due-card .due-value {
+    font-size: 1.1em;
+    color: #fff;
+    font-weight: 500;
+  }
+  .due-card .due-status {
+    display: inline-block;
+    padding: 0.3em 1em;
+    border-radius: 9999px;
+    font-size: 0.95em;
+    font-weight: 700;
+    background: linear-gradient(90deg, #7f5af0 0%, #23263a 100%);
+    color: #fff;
+    margin-top: 0.5em;
+    box-shadow: 0 2px 8px 0 #7f5af033;
+  }
+  .due-card .due-status.paid {
+    background: linear-gradient(90deg, #00e676 0%, #23263a 100%);
+    color: #fff;
+  }
+  .due-card .due-status.unpaid {
+    background: linear-gradient(90deg, #ff1744 0%, #23263a 100%);
+    color: #fff;
+  }
+  .dues-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2em;
+  }
+  form select {
+    background: rgba(255,255,255,0.85) !important;
+    color: #23263a !important;
+    border: 1.5px solid #7f5af0 !important;
+    font-weight: 600;
+    box-shadow: 0 2px 12px 0 rgba(127,90,240,0.10);
+    transition: border 0.2s, box-shadow 0.2s;
+  }
+  form select:focus {
+    border: 1.5px solid #23263a !important;
+    box-shadow: 0 4px 24px 0 #7f5af033;
+  }
+  /* Toggle Switch for Paid */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    vertical-align: middle;
+    margin-left: 0.5em;
+  }
+  .switch input { opacity: 0; width: 0; height: 0; }
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(127,90,240,0.18);
+    border-radius: 9999px;
+    transition: .3s;
+    box-shadow: 0 2px 8px 0 #7f5af033;
+  }
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background: linear-gradient(90deg, #7f5af0 0%, #23263a 100%);
+    border-radius: 50%;
+    transition: .3s;
+    box-shadow: 0 2px 8px 0 #7f5af033;
+  }
+  input:checked + .slider {
+    background: linear-gradient(90deg, #00e676 0%, #23263a 100%);
+  }
+  input:checked + .slider:before {
+    transform: translateX(20px);
+    background: linear-gradient(90deg, #00e676 0%, #23263a 100%);
+  }
+</style>
+<img src="https://images.unsplash.com/photo-1687618049680-3b334671044c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGdyYWRpZW50JTIwZ2xhc3N8ZW58MHx8MHx8fDA%3D" alt="Glass Gradient Texture" class="bg-texture" />
+<div class="bg-glass-gradient"></div>
+<div class="bg-overlay"></div>
+<div class="w-full min-h-screen flex flex-col items-center justify-start py-8 px-2 relative" style="z-index:3;">
+  <div class="classy-heading">
+    <div class="classy-heading-bar">
+      <span class="classy-heading-text">Dues Management <span class="text-base font-normal opacity-70">(Admin Only)</span></span>
+    </div>
+  </div>
+  <div class="glass-card">
+<!-- Tab Navigation -->
+    <div class="flex flex-wrap gap-2 mb-8 justify-center">
+    <button type="button" class="tab-btn" onclick="showTab('view')" id="tab-view">View all dues</button>
+    <button type="button" class="tab-btn" onclick="showTab('add')" id="tab-add">Add a due</button>
+    <button type="button" class="tab-btn" onclick="showTab('edit')" id="tab-edit">Edit a due</button>
+    <button type="button" class="tab-btn" onclick="showTab('delete')" id="tab-delete">Delete a due</button>
+</div>
+<!-- View All Dues Tab -->
+<div id="tab-content-view" class="tab-content">
+      <h3 class="text-lg font-bold mb-4 text-indigo-200">All Dues</h3>
+      <div class="dues-grid">
+            {% for due in dues %}
+        <div class="due-card">
+          <div><span class="due-label">Student:</span> <span class="due-value">{{ due.user.profile.full_name }}</span></div>
+          <div><span class="due-label">Roll:</span> <span class="due-value">{{ due.user.profile.roll_number }}</span></div>
+          <div><span class="due-label">Month:</span> <span class="due-value">{{ due.month }}</span></div>
+          <div><span class="due-label">Amount:</span> <span class="due-value">₹{{ due.amount_due }}</span></div>
+          <div class="due-status {% if due.is_paid %}paid{% else %}unpaid{% endif %}">{% if due.is_paid %}Paid{% else %}Unpaid{% endif %}</div>
+        </div>
+            {% endfor %}
+      </div>
+</div>
+<!-- Add Due Tab -->
+<div id="tab-content-add" class="tab-content" style="display:none;">
+      <h3 class="text-lg font-bold mb-4 text-indigo-200">Add New Due</h3>
+    <form method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="add_due" value="1">
+        <div class="mb-4">
+            <label>Student:<br>
+            <select name="user_id" required>
+                    <option value="">Select Student</option>
+                    <option value="all">All Students</option>
+                    {% for student in students %}
+                        <option value="{{ student.user_id }}">{{ student.full_name }} (Roll: {{ student.roll_number }})</option>
+                    {% endfor %}
+                </select>
+            </label>
+        </div>
+        <div class="mb-4">
+            <label>Month:<br>
+            <input type="month" name="month_picker" id="month_picker" required onchange="updateMonthInput(this.value)">
+                <input type="hidden" name="month" id="month_hidden">
+            </label>
+        </div>
+        <div class="mb-4">
+            <label>Amount:<br>
+            <input type="number" name="amount" value="1500" required>
+            </label>
+        </div>
+        <div class="mb-4">
+            <label><input type="checkbox" name="is_paid"> Paid</label>
+        </div>
+        <div>
+          <button type="submit">Add Due</button>
+        </div>
+    </form>
+</div>
+<!-- Edit Due Tab -->
+<div id="tab-content-edit" class="tab-content" style="display:none;">
+      <h3 class="text-lg font-bold mb-4 text-indigo-200">Edit Dues</h3>
+      <div class="dues-grid">
+            {% for due in dues %}
+        <div class="due-card">
+          <div><span class="due-label">Student:</span> <span class="due-value">{{ due.user.profile.full_name }}</span></div>
+          <div><span class="due-label">Roll:</span> <span class="due-value">{{ due.user.profile.roll_number }}</span></div>
+          <form method="post" class="mt-2">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="edit_due" value="1">
+                        <input type="hidden" name="fee_id" value="{{ due.id }}">
+            <div class="mb-2">
+              <label>Month:<br>
+                        <input type="month" name="edit_month_picker" value="{{ due.month|date('Y-m') if '-' in due.month else '' }}" onchange="updateEditMonthInput(this, '{{ due.id }}')">
+                        <input type="hidden" name="edit_month" id="edit_month_hidden_{{ due.id }}" value="{{ due.month }}">
+              </label>
+            </div>
+            <div class="mb-2">
+              <label>Amount:<br>
+                        <input type="number" name="edit_amount" value="{{ due.amount_due }}" size="5" required>
+              </label>
+            </div>
+            <div class="mb-2 flex items-center gap-2">
+              <label for="edit_is_paid_{{ due.id }}" class="due-label">Paid</label>
+              <label class="switch">
+                <input type="checkbox" id="edit_is_paid_{{ due.id }}" name="edit_is_paid" {% if due.is_paid %}checked{% endif %}>
+                <span class="slider"></span>
+              </label>
+            </div>
+                        <button type="submit">Update</button>
+                    </form>
+        </div>
+            {% endfor %}
+      </div>
+</div>
+<!-- Delete Due Tab -->
+<div id="tab-content-delete" class="tab-content" style="display:none;">
+      <h3 class="text-lg font-bold mb-4 text-indigo-200">Delete Dues</h3>
+      <div class="dues-grid">
+            {% for due in dues %}
+        <div class="due-card">
+          <div><span class="due-label">Student:</span> <span class="due-value">{{ due.user.profile.full_name }}</span></div>
+          <div><span class="due-label">Roll:</span> <span class="due-value">{{ due.user.profile.roll_number }}</span></div>
+          <div><span class="due-label">Month:</span> <span class="due-value">{{ due.month }}</span></div>
+          <div><span class="due-label">Amount:</span> <span class="due-value">₹{{ due.amount_due }}</span></div>
+          <div class="due-status {% if due.is_paid %}paid{% else %}unpaid{% endif %}">{% if due.is_paid %}Paid{% else %}Unpaid{% endif %}</div>
+          <form method="post" class="mt-2">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="delete_due" value="1">
+                        <input type="hidden" name="fee_id" value="{{ due.id }}">
+                        <button type="submit" onclick="return confirm('Delete this due?');">Delete</button>
+                    </form>
+        </div>
+            {% endfor %}
+      </div>
+    </div>
+</div>
+</div>
+<script>
+function showTab(tab) {
+    // Hide all tab contents
+    document.querySelectorAll('.tab-content').forEach(function(el){ el.style.display='none'; });
+    // Remove active from all buttons
+    document.querySelectorAll('.tab-btn').forEach(function(el){ el.classList.remove('active'); });
+    // Show selected tab
+    document.getElementById('tab-content-' + tab).style.display = '';
+    document.getElementById('tab-' + tab).classList.add('active');
+}
+// Month scroller for Add Due form
+function updateMonthInput(val) {
+    if(val) {
+        const [year, month] = val.split('-');
+        const label = new Date(year, month-1).toLocaleString('default', { month: 'long', year: 'numeric' });
+        document.getElementById('month_hidden').value = label;
+    }
+}
+// Month scroller for Edit Due form
+function updateEditMonthInput(input, id) {
+    if(input.value) {
+        const [year, month] = input.value.split('-');
+        const label = new Date(year, month-1).toLocaleString('default', { month: 'long', year: 'numeric' });
+        document.getElementById('edit_month_hidden_' + id).value = label;
+    }
+}
+// Set default tab on page load
+window.onload = function() {
+    showTab('view');
+    const monthPicker = document.getElementById('month_picker');
+    if(monthPicker && monthPicker.value) updateMonthInput(monthPicker.value);
+}
+</script>
+{% endblock %} 

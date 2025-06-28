@@ -1,0 +1,158 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#764ba2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f093fb;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="shapeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0.05" />
+    </linearGradient>
+    
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4facfe;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#00f2fe;stop-opacity:0.8" />
+    </linearGradient>
+    
+    <linearGradient id="capGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#f0f0f0;stop-opacity:0.9" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="800" fill="url(#bgGradient)"/>
+  
+  <!-- Large geometric shapes -->
+  <circle cx="200" cy="200" r="150" fill="url(#shapeGradient)" opacity="0.3"/>
+  <circle cx="1000" cy="600" r="120" fill="url(#shapeGradient)" opacity="0.2"/>
+  <circle cx="900" cy="150" r="80" fill="url(#accentGradient)" opacity="0.4"/>
+  
+  <!-- Large Graduation Cap 1 (Main) -->
+  <g transform="translate(400, 200)">
+    <!-- Tassel -->
+    <line x1="0" y1="-60" x2="0" y2="-90" stroke="white" stroke-width="3" opacity="0.8"/>
+    <circle cx="0" cy="-90" r="8" fill="white" opacity="0.8"/>
+    <line x1="-8" y1="-90" x2="8" y2="-90" stroke="white" stroke-width="2" opacity="0.6"/>
+    <line x1="-6" y1="-95" x2="6" y2="-95" stroke="white" stroke-width="1" opacity="0.6"/>
+    
+    <!-- Cap body -->
+    <ellipse cx="0" cy="0" rx="60" ry="15" fill="url(#capGradient)" opacity="0.95"/>
+    <rect x="-50" y="-15" width="100" height="15" fill="url(#capGradient)" opacity="0.95"/>
+    <rect x="-40" y="-50" width="80" height="35" fill="url(#capGradient)" opacity="0.95"/>
+    <circle cx="0" cy="-50" r="40" fill="url(#capGradient)" opacity="0.95"/>
+    
+    <!-- Cap border -->
+    <ellipse cx="0" cy="0" rx="60" ry="15" fill="none" stroke="white" stroke-width="2" opacity="0.8"/>
+    <rect x="-50" y="-15" width="100" height="15" fill="none" stroke="white" stroke-width="2" opacity="0.8"/>
+    <circle cx="0" cy="-50" r="40" fill="none" stroke="white" stroke-width="2" opacity="0.8"/>
+  </g>
+  
+  <!-- Large Graduation Cap 2 (Secondary) -->
+  <g transform="translate(800, 350)">
+    <!-- Tassel -->
+    <line x1="0" y1="-45" x2="0" y2="-70" stroke="white" stroke-width="2" opacity="0.7"/>
+    <circle cx="0" cy="-70" r="6" fill="white" opacity="0.7"/>
+    <line x1="-6" y1="-70" x2="6" y2="-70" stroke="white" stroke-width="1.5" opacity="0.5"/>
+    
+    <!-- Cap body -->
+    <ellipse cx="0" cy="0" rx="45" ry="12" fill="url(#capGradient)" opacity="0.9"/>
+    <rect x="-38" y="-12" width="76" height="12" fill="url(#capGradient)" opacity="0.9"/>
+    <rect x="-30" y="-38" width="60" height="26" fill="url(#capGradient)" opacity="0.9"/>
+    <circle cx="0" cy="-38" r="30" fill="url(#capGradient)" opacity="0.9"/>
+    
+    <!-- Cap border -->
+    <ellipse cx="0" cy="0" rx="45" ry="12" fill="none" stroke="white" stroke-width="1.5" opacity="0.7"/>
+    <circle cx="0" cy="-38" r="30" fill="none" stroke="white" stroke-width="1.5" opacity="0.7"/>
+  </g>
+  
+  <!-- Medium Graduation Cap 3 -->
+  <g transform="translate(200, 500)">
+    <!-- Tassel -->
+    <line x1="0" y1="-35" x2="0" y2="-55" stroke="white" stroke-width="1.5" opacity="0.6"/>
+    <circle cx="0" cy="-55" r="5" fill="white" opacity="0.6"/>
+    
+    <!-- Cap body -->
+    <ellipse cx="0" cy="0" rx="35" ry="10" fill="url(#capGradient)" opacity="0.85"/>
+    <rect x="-30" y="-10" width="60" height="10" fill="url(#capGradient)" opacity="0.85"/>
+    <rect x="-25" y="-30" width="50" height="20" fill="url(#capGradient)" opacity="0.85"/>
+    <circle cx="0" cy="-30" r="25" fill="url(#capGradient)" opacity="0.85"/>
+    
+    <!-- Cap border -->
+    <ellipse cx="0" cy="0" rx="35" ry="10" fill="none" stroke="white" stroke-width="1" opacity="0.6"/>
+    <circle cx="0" cy="-30" r="25" fill="none" stroke="white" stroke-width="1" opacity="0.6"/>
+  </g>
+  
+  <!-- Floating books -->
+  <g transform="translate(150, 300)">
+    <rect x="0" y="0" width="60" height="80" rx="8" fill="url(#accentGradient)" opacity="0.7"/>
+    <rect x="5" y="5" width="50" height="70" rx="4" fill="white" opacity="0.9"/>
+    <line x1="15" y1="20" x2="45" y2="20" stroke="#667eea" stroke-width="2"/>
+    <line x1="15" y1="30" x2="40" y2="30" stroke="#667eea" stroke-width="1"/>
+    <line x1="15" y1="40" x2="35" y2="40" stroke="#667eea" stroke-width="1"/>
+    <line x1="15" y1="50" x2="42" y2="50" stroke="#667eea" stroke-width="1"/>
+  </g>
+  
+  <g transform="translate(950, 200)">
+    <rect x="0" y="0" width="50" height="65" rx="6" fill="url(#accentGradient)" opacity="0.6"/>
+    <rect x="4" y="4" width="42" height="57" rx="3" fill="white" opacity="0.8"/>
+    <line x1="12" y1="15" x2="38" y2="15" stroke="#764ba2" stroke-width="1.5"/>
+    <line x1="12" y1="25" x2="35" y2="25" stroke="#764ba2" stroke-width="1"/>
+    <line x1="12" y1="35" x2="32" y2="35" stroke="#764ba2" stroke-width="1"/>
+  </g>
+  
+  <!-- Pencils -->
+  <g transform="translate(400, 500)">
+    <rect x="0" y="0" width="4" height="60" fill="#f093fb" opacity="0.8"/>
+    <polygon points="0,0 4,0 2,-8" fill="#f093fb" opacity="0.8"/>
+    <rect x="1" y="55" width="2" height="5" fill="#764ba2" opacity="0.8"/>
+  </g>
+  
+  <g transform="translate(700, 300)">
+    <rect x="0" y="0" width="3" height="45" fill="#4facfe" opacity="0.7"/>
+    <polygon points="0,0 3,0 1.5,-6" fill="#4facfe" opacity="0.7"/>
+    <rect x="0.5" y="42" width="2" height="3" fill="#667eea" opacity="0.7"/>
+  </g>
+  
+  <!-- Mathematical symbols -->
+  <g transform="translate(200, 600)" fill="white" opacity="0.6">
+    <text x="0" y="0" font-family="Arial" font-size="24" font-weight="bold">∑</text>
+  </g>
+  
+  <g transform="translate(1000, 100)" fill="white" opacity="0.5">
+    <text x="0" y="0" font-family="Arial" font-size="20" font-weight="bold">π</text>
+  </g>
+  
+  <g transform="translate(500, 100)" fill="white" opacity="0.4">
+    <text x="0" y="0" font-family="Arial" font-size="18" font-weight="bold">∞</text>
+  </g>
+  
+  <!-- Abstract geometric elements -->
+  <g transform="translate(600, 600)">
+    <polygon points="0,-20 17,10 -17,10" fill="url(#accentGradient)" opacity="0.3"/>
+  </g>
+  
+  <g transform="translate(100, 450)">
+    <rect x="-15" y="-15" width="30" height="30" transform="rotate(45)" fill="url(#accentGradient)" opacity="0.2"/>
+  </g>
+  
+  <!-- Connection lines -->
+  <g stroke="white" stroke-width="1" opacity="0.1">
+    <line x1="300" y1="200" x2="500" y2="300"/>
+    <line x1="700" y1="400" x2="900" y2="500"/>
+    <line x1="400" y1="600" x2="600" y2="700"/>
+  </g>
+  
+  <!-- Small decorative dots -->
+  <g fill="white" opacity="0.3">
+    <circle cx="150" cy="150" r="3"/>
+    <circle cx="1050" cy="250" r="2"/>
+    <circle cx="250" cy="700" r="2.5"/>
+    <circle cx="950" cy="700" r="2"/>
+    <circle cx="600" cy="200" r="2"/>
+    <circle cx="800" cy="650" r="1.5"/>
+  </g>
+</svg> 

@@ -1,0 +1,15 @@
+{# Usage: {{ show_banner('Your message here', duration=10000) }} #}
+{% macro show_banner(message, duration=10000, button_label=None, button_url=None) %}
+<div id="centered-banner-overlay" data-duration="{{ duration|int }}" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 animate__animated animate__fadeIn">
+  <div class="w-full max-w-2xl flex flex-col items-center gap-6 bg-white/90 p-6 rounded-xl shadow-xl relative">
+    <button onclick="document.getElementById('centered-banner-overlay').remove()" class="absolute top-2 right-4 text-gray-700 text-2xl font-bold bg-transparent hover:text-red-500 focus:outline-none">&times;</button>
+    <div>
+      <h4 class="text-gray-800 font-bold text-lg text-center mb-2">Notification</h4>
+      <p class="text-gray-700 text-base text-center">{{ message|safe }}</p>
+    </div>
+    {% if button_label and button_url %}
+    <a href="{{ button_url }}" class="btn-premium mt-2">{{ button_label }}</a>
+    {% endif %}
+  </div>
+</div>
+{% endmacro %} 

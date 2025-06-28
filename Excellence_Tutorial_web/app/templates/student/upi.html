@@ -1,0 +1,270 @@
+{% extends 'shared/base.html' %}
+{% block content %}
+<style>
+  body, html {
+    background: #181c24 !important;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  }
+  .bg-texture {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.22;
+    filter: blur(0.5px);
+  }
+  .bg-glass-gradient {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    background: linear-gradient(135deg, rgba(10,12,18,0.85) 0%, rgba(36,40,56,0.7) 100%);
+    pointer-events: none;
+  }
+  .bg-overlay {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    background: rgba(24,28,36,0.3);
+    pointer-events: none;
+  }
+  .classy-heading {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2.5rem;
+  }
+  .classy-heading-bar {
+    background: rgba(24,28,36,0.55);
+    backdrop-filter: blur(8px);
+    border-radius: 1.5rem;
+    padding: 1.2rem 2.5rem;
+    box-shadow: 0 4px 32px 0 rgba(0,0,0,0.18);
+    display: inline-block;
+  }
+  .classy-heading-text {
+    font-size: 2.2rem;
+    font-weight: 900;
+    letter-spacing: 0.03em;
+    color: #f3f4f6;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    text-align: center;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.18), 0 1px 2px rgba(0,0,0,0.10);
+    line-height: 1.1;
+  }
+  .glass-card {
+    background: rgba(24,28,36,0.45);
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 32px 0 rgba(0,0,0,0.10);
+    border: 1.5px solid rgba(127,90,240,0.13);
+    backdrop-filter: blur(8px);
+    position: relative;
+    z-index: 3;
+    margin-bottom: 2.5rem;
+  }
+  .back-btn-glass {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #e0e6f7;
+    background: linear-gradient(90deg, rgba(36,40,56,0.7) 0%, rgba(127,90,240,0.4) 100%);
+    border-radius: 9999px;
+    box-shadow: 0 2px 16px 0 rgba(127,90,240,0.10);
+    border: 1.5px solid rgba(127,90,240,0.18);
+    backdrop-filter: blur(6px);
+    transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+    margin: 0 auto;
+    text-align: center;
+    min-width: 90px;
+  }
+  .back-btn-glass:hover {
+    background: linear-gradient(90deg, rgba(127,90,240,0.4) 0%, rgba(36,40,56,0.7) 100%);
+    color: #fff;
+    box-shadow: 0 4px 32px 0 rgba(127,90,240,0.18);
+  }
+  @media (max-width: 600px) {
+    .classy-heading-bar { padding: 0.8rem 1rem; }
+    .classy-heading-text { font-size: 1.2rem; }
+    .glass-card { padding: 1rem !important; }
+  }
+</style>
+<img src="https://images.unsplash.com/photo-1687618049680-3b334671044c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGdyYWRpZW50JTIwZ2xhc3N8ZW58MHx8MHx8fDA%3D" alt="Glass Gradient Texture" class="bg-texture" />
+<div class="bg-glass-gradient"></div>
+<div class="bg-overlay"></div>
+<div class="w-full min-h-screen flex flex-col items-center justify-start py-8 px-2 relative" style="z-index:3;">
+  <div class="w-full max-w-4xl mx-auto z-10 relative">
+    <div class="classy-heading">
+      <div class="classy-heading-bar">
+        <span class="classy-heading-text">UPI Payment</span>
+      </div>
+    </div>
+    <div class="glass-card p-6">
+      <!-- Payment Details -->
+      <h3 class="text-xl font-semibold text-blue-200 mb-4">Payment Details</h3>
+      <div class="grid md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <p class="text-gray-300">Student: <span class="font-medium text-white">{{ current_user.profile.full_name }}</span></p>
+          <p class="text-gray-300">Roll Number: <span class="font-medium text-white">{{ current_user.profile.roll_number }}</span></p>
+          <p class="text-gray-300">Class: <span class="font-medium text-white">{{ current_user.profile.student_class }}</span></p>
+        </div>
+        <div>
+          <p class="text-gray-300">Month: <span class="font-medium text-white">{{ fee.month }}</span></p>
+          <p class="text-gray-300">Amount: <span class="font-medium text-lg text-green-300">₹{{ fee.amount_due }}</span></p>
+          <p class="text-gray-300">Status: <span class="font-medium text-red-400">Outstanding</span></p>
+        </div>
+      </div>
+    </div>
+    <div class="glass-card p-6">
+      <!-- UPI Payment Form -->
+      <h3 class="text-xl font-semibold text-green-200 mb-4">UPI Payment Instructions</h3>
+      <div class="bg-white/10 rounded-lg p-4 mb-6">
+        <div class="text-center mb-4">
+          <div class="text-2xl font-bold text-green-300 mb-2">₹{{ fee.amount_due }}</div>
+          <p class="text-gray-200">Amount to Pay</p>
+        </div>
+        <div class="space-y-3">
+          <div class="flex justify-between items-center p-3 bg-gray-900/30 rounded">
+            <span class="font-medium text-gray-200">UPI ID:</span>
+            <span class="font-mono text-lg text-white">{{ upi_id }}</span>
+            <a href="{{ url_for('student.qr') }}" class="ml-4 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-400 font-bold">Open QR</a>
+          </div>
+          <div class="flex justify-between items-center p-3 bg-gray-900/30 rounded">
+            <span class="font-medium text-gray-200">Payee Name:</span>
+            <span class="text-white">Excellence Tutorial</span>
+          </div>
+          <div class="flex justify-between items-center p-3 bg-gray-900/30 rounded">
+            <span class="font-medium text-gray-200">Reference:</span>
+            <span class="font-mono text-white">{{ current_user.profile.roll_number }}-{{ fee.month }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="bg-yellow-400/10 border border-yellow-400/20 rounded-lg p-4 mb-6">
+        <h4 class="font-semibold text-yellow-200 mb-2">Steps to Complete Payment:</h4>
+        <ol class="text-sm text-yellow-100 space-y-1 list-decimal list-inside">
+          <li>Open your UPI app (Google Pay, PhonePe, Paytm, etc.)</li>
+          <li>Scan the QR code or enter UPI ID: <strong>{{ upi_id }}</strong></li>
+          <li>Enter amount: <strong>₹{{ fee.amount_due }}</strong></li>
+          <li>Add reference: <strong>{{ current_user.profile.roll_number }}-{{ fee.month }}</strong></li>
+          <li>Complete the payment</li>
+          <li>Click "Submit UPI Payment Request" below after successful payment</li>
+        </ol>
+      </div>
+      <form method="POST" class="space-y-4">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="bg-white/10 rounded-lg p-4 mb-4">
+          <label for="upi_reference" class="block text-sm font-medium text-gray-200 mb-2">
+            UPI Reference Number *
+          </label>
+          <input type="text" 
+                 id="upi_reference" 
+                 name="upi_reference" 
+                 required 
+                 placeholder="Enter the UPI reference number from your payment"
+                 class="w-full px-3 py-2 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent bg-gray-900/30 text-white">
+          <p class="text-sm text-gray-400 mt-1">
+            Enter the reference number you used when making the UPI payment
+          </p>
+        </div>
+        <div class="flex items-center">
+          <input type="checkbox" id="payment_confirmed" name="payment_confirmed" required class="mr-2">
+          <label for="payment_confirmed" class="text-sm text-gray-200">
+            I confirm that I have successfully completed the UPI payment of ₹{{ fee.amount_due }}
+          </label>
+        </div>
+        <button type="submit" class="w-full bg-green-500/80 text-white px-6 py-3 rounded-lg hover:bg-green-400/90 transition font-semibold shadow-lg">
+          📱 Submit UPI Payment Request
+        </button>
+      </form>
+    </div>
+    <div class="glass-card p-6">
+      <!-- UPI Payment History -->
+      <h3 class="text-xl font-semibold mb-4 text-blue-200">UPI Payment History</h3>
+      {% if upi_payments %}
+        <div class="overflow-x-auto">
+          <table class="min-w-full rounded-lg overflow-hidden bg-gray-900/30 text-white">
+            <thead class="bg-gray-900/60">
+              <tr>
+                <th class="px-4 py-3 text-left">Date</th>
+                <th class="px-4 py-3 text-left">Month</th>
+                <th class="px-4 py-3 text-left">Amount</th>
+                <th class="px-4 py-3 text-left">Reference</th>
+                <th class="px-4 py-3 text-left">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for payment in upi_payments %}
+              <tr class="border-b border-gray-800">
+                <td class="px-4 py-3">{{ payment.confirmed_at.strftime('%d-%m-%Y') if payment.confirmed_at else payment.requested_at.strftime('%d-%m-%Y') }}</td>
+                <td class="px-4 py-3">{{ payment.fee.month }}</td>
+                <td class="px-4 py-3">₹{{ payment.fee.amount_due }}</td>
+                <td class="px-4 py-3">
+                  {% if payment.reference %}
+                    <span class="px-2 py-1 bg-blue-900/40 text-blue-200 rounded text-sm font-mono">{{ payment.reference }}</span>
+                  {% else %}
+                    <span class="text-gray-400 text-sm">No reference</span>
+                  {% endif %}
+                </td>
+                <td class="px-4 py-3">
+                  <span class="px-2 py-1 bg-green-900/40 text-green-200 rounded text-sm">✓ Approved</span>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <p class="text-gray-400 text-center py-4">No approved UPI payments yet.</p>
+      {% endif %}
+    </div>
+    {% if pending_upi_payments %}
+    <div class="glass-card p-6 mt-6 border border-yellow-400/20">
+      <h3 class="text-xl font-semibold text-yellow-200 mb-4">Pending UPI Payment Requests</h3>
+      <div class="overflow-x-auto">
+        <table class="min-w-full rounded-lg overflow-hidden bg-gray-900/30 text-white">
+          <thead class="bg-yellow-900/40">
+            <tr>
+              <th class="px-4 py-3 text-left">Date</th>
+              <th class="px-4 py-3 text-left">Month</th>
+              <th class="px-4 py-3 text-left">Amount</th>
+              <th class="px-4 py-3 text-left">Reference</th>
+              <th class="px-4 py-3 text-left">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for payment in pending_upi_payments %}
+            <tr class="border-b border-gray-800">
+              <td class="px-4 py-3">{{ payment.requested_at.strftime('%d-%m-%Y') }}</td>
+              <td class="px-4 py-3">{{ payment.fee.month }}</td>
+              <td class="px-4 py-3">₹{{ payment.fee.amount_due }}</td>
+              <td class="px-4 py-3">
+                {% if payment.reference %}
+                  <span class="px-2 py-1 bg-blue-900/40 text-blue-200 rounded text-sm font-mono">{{ payment.reference }}</span>
+                {% else %}
+                  <span class="text-gray-400 text-sm">No reference</span>
+                {% endif %}
+              </td>
+              <td class="px-4 py-3">
+                <span class="px-2 py-1 bg-yellow-900/40 text-yellow-200 rounded text-sm">⏳ Pending Approval</span>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endif %}
+    <div class="mt-6 text-center">
+      <a href="{{ url_for('student.fee') }}" class="back-btn-glass">Back</a>
+    </div>
+  </div>
+</div>
+{% endblock %} 

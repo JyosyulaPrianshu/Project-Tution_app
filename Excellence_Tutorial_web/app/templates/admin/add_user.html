@@ -1,0 +1,26 @@
+{% extends 'shared/base.html' %}
+{% block content %}
+<main class="mx-auto flex min-h-screen w-full items-center justify-center bg-gray-900 text-white">
+  <section class="flex w-[30rem] flex-col space-y-10">
+    <div class="text-center text-3xl font-bold">Add New Admin User</div>
+    <form method="POST" class="space-y-8">
+      {{ form.hidden_tag() }}
+      <div>
+        {{ form.email.label(class_="block mb-2") }}
+        {{ form.email(class_="w-full px-3 py-2 rounded text-black") }}
+      </div>
+      <div>
+        {{ form.password.label(class_="block mb-2") }}
+        {{ form.password(class_="w-full px-3 py-2 rounded text-black") }}
+      </div>
+      <div>
+        {{ form.confirm_password.label(class_="block mb-2") }}
+        {{ form.confirm_password(class_="w-full px-3 py-2 rounded text-black") }}
+      </div>
+      <button type="submit" class="w-full bg-indigo-600 py-2 font-bold rounded hover:bg-indigo-400">
+        Add Admin User
+      </button>
+    </form>
+  </section>
+</main>
+{% endblock %} 
